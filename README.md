@@ -7,7 +7,7 @@
 The taskiq-scheduler adapter for [z4j](https://z4j.com).
 
 Surfaces taskiq-scheduler periodic jobs on the dashboard's Schedules
-page — read, enable, disable, trigger.
+page, read, enable, disable, trigger.
 
 ## What it ships
 
@@ -21,7 +21,7 @@ page — read, enable, disable, trigger.
 
 taskiq-scheduler schedules are typically defined declaratively (label
 source, JSON file, or label decorators), so create / update / delete
-are intentionally out of scope — those need a deploy round-trip.
+are intentionally out of scope, those need a deploy round-trip.
 
 ## Install
 
@@ -52,7 +52,7 @@ install_agent(
 
 ## Pairs with
 
-- [`z4j-taskiq`](https://github.com/z4jdev/z4j-taskiq) — engine adapter
+- [`z4j-taskiq`](https://github.com/z4jdev/z4j-taskiq), engine adapter
 
 ## Reliability
 
@@ -67,7 +67,7 @@ Full docs at [z4j.dev/schedulers/taskiq-scheduler/](https://z4j.dev/schedulers/t
 
 ## License
 
-Apache-2.0 — see [LICENSE](LICENSE).
+Apache-2.0, see [LICENSE](LICENSE).
 
 ## Links
 
