@@ -19,7 +19,7 @@ from z4j_core.models import CommandResult, Schedule, ScheduleKind
 
 from z4j_taskiqscheduler.capabilities import DEFAULT_CAPABILITIES
 
-logger = logging.getLogger("z4j.agent.taskiqscheduler.scheduler")
+logger = logging.getLogger("z4j.adapter.taskiqscheduler.scheduler")
 
 _NAME = "taskiq-scheduler"
 
