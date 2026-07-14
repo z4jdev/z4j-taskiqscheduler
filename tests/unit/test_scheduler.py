@@ -6,10 +6,9 @@ import pytest
 
 pytest.importorskip("taskiq")
 
-from taskiq import InMemoryBroker  # noqa: E402
-from taskiq.schedule_sources import LabelScheduleSource  # noqa: E402
-
-from z4j_taskiqscheduler import TaskiqSchedulerAdapter  # noqa: E402
+from taskiq import InMemoryBroker
+from taskiq.schedule_sources import LabelScheduleSource
+from z4j_taskiqscheduler import TaskiqSchedulerAdapter
 
 
 @pytest.fixture

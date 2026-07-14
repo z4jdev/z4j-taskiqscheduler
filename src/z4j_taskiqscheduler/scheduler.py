@@ -45,7 +45,7 @@ class TaskiqSchedulerAdapter:
         self.source = source
         self._project_id = project_id or uuid4()
 
-    def connect_signals(self, sink: Any) -> None:  # noqa: ARG002
+    def connect_signals(self, sink: Any) -> None:
         return
 
     def disconnect_signals(self) -> None:
@@ -54,14 +54,14 @@ class TaskiqSchedulerAdapter:
     async def list_schedules(self) -> list[Schedule]:
         try:
             scheduled = await self.source.get_schedules()
-        except Exception:  # noqa: BLE001
+        except Exception:
             logger.exception("z4j taskiqscheduler: get_schedules failed")
             return []
         out: list[Schedule] = []
         for sch in scheduled:
             try:
                 out.append(self._to_schedule(sch))
-            except Exception:  # noqa: BLE001
+            except Exception:
                 logger.exception(
                     "z4j taskiqscheduler: failed to map %r",
                     getattr(sch, "schedule_id", "?"),
@@ -74,14 +74,16 @@ class TaskiqSchedulerAdapter:
                 return s
         return None
 
-    async def create_schedule(self, spec: Schedule) -> Schedule:  # noqa: ARG002
+    async def create_schedule(self, spec: Schedule) -> Schedule:
         raise NotImplementedError(
             "taskiq schedules are decorator-defined; edit your "
             "task's schedule= argument and redeploy.",
         )
 
     async def update_schedule(
-        self, schedule_id: str, spec: Schedule,  # noqa: ARG002
+        self,
+        schedule_id: str,
+        spec: Schedule,
     ) -> Schedule:
         raise NotImplementedError(
             "taskiq schedules are decorator-defined; edit and redeploy.",
@@ -96,29 +98,26 @@ class TaskiqSchedulerAdapter:
             )
         try:
             await delete_fn(schedule_id)
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             return CommandResult(status="failed", error=str(exc))
         return CommandResult(
             status="success",
             result={"schedule_id": schedule_id},
         )
 
-    async def enable_schedule(self, schedule_id: str) -> CommandResult:  # noqa: ARG002
+    async def enable_schedule(self, schedule_id: str) -> CommandResult:
         return CommandResult(
             status="failed",
-            error=(
-                "taskiq schedules have no enable/disable toggle - "
-                "delete + re-add to suspend"
-            ),
+            error=("taskiq schedules have no enable/disable toggle - delete + re-add to suspend"),
         )
 
-    async def disable_schedule(self, schedule_id: str) -> CommandResult:  # noqa: ARG002
+    async def disable_schedule(self, schedule_id: str) -> CommandResult:
         return CommandResult(
             status="failed",
             error="taskiq schedules have no enable/disable toggle",
         )
 
-    async def trigger_now(self, schedule_id: str) -> CommandResult:  # noqa: ARG002
+    async def trigger_now(self, schedule_id: str) -> CommandResult:
         return CommandResult(
             status="failed",
             error=(
@@ -144,11 +143,7 @@ class TaskiqSchedulerAdapter:
             expression = str(interval)
         elif time_at is not None:
             kind = ScheduleKind.CLOCKED
-            expression = (
-                time_at.isoformat()
-                if hasattr(time_at, "isoformat")
-                else str(time_at)
-            )
+            expression = time_at.isoformat() if hasattr(time_at, "isoformat") else str(time_at)
         else:
             kind = ScheduleKind.CRON
             expression = "unknown"

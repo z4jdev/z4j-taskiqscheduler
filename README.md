@@ -1,18 +1,18 @@
 # z4j-taskiqscheduler
 
-[![PyPI version](https://img.shields.io/pypi/v/z4j-taskiqscheduler.svg?v=1.6.7)](https://pypi.org/project/z4j-taskiqscheduler/)
-[![Python](https://img.shields.io/pypi/pyversions/z4j-taskiqscheduler.svg?v=1.6.7)](https://pypi.org/project/z4j-taskiqscheduler/)
-[![License](https://img.shields.io/pypi/l/z4j-taskiqscheduler.svg?v=1.6.7)](https://github.com/z4jdev/z4j-taskiqscheduler/blob/main/LICENSE)
+[![PyPI version](https://img.shields.io/pypi/v/z4j-taskiqscheduler.svg?v=1.7.0)](https://pypi.org/project/z4j-taskiqscheduler/)
+[![Python](https://img.shields.io/pypi/pyversions/z4j-taskiqscheduler.svg?v=1.7.0)](https://pypi.org/project/z4j-taskiqscheduler/)
+[![License](https://img.shields.io/pypi/l/z4j-taskiqscheduler.svg?v=1.7.0)](https://github.com/z4jdev/z4j-taskiqscheduler/blob/main/LICENSE)
 
 The taskiq-scheduler adapter for [z4j](https://z4j.com).
 
 Surfaces taskiq-scheduler periodic jobs on the dashboard's Schedules
-page, read, enable, disable, trigger.
+page, list, read, delete (where the schedule source supports it).
 
 ## Compatibility
 
 - TaskIQ 0.11+ and <1
-- Python 3.10+
+- Python 3.11+
 
 Full per-adapter matrix at <https://z4j.dev/reference/compatibility/>.
 
@@ -22,13 +22,14 @@ Full per-adapter matrix at <https://z4j.dev/reference/compatibility/>.
 |---|---|
 | List schedules | every job registered with the taskiq-scheduler source |
 | Read | by registered name |
-| Enable / disable | via consumer-side gating |
-| Trigger now | enqueues the task immediately, outside the schedule |
+| Delete | when the schedule source implements `delete_schedule` (dynamic sources); label-defined schedules need a code change |
 | Boot inventory | full snapshot at agent connect; existing schedules show up without editing |
 
 taskiq-scheduler schedules are typically defined declaratively (label
-source, JSON file, or label decorators), so create / update / delete
-are intentionally out of scope, those need a deploy round-trip.
+source, JSON file, or label decorators), so create / update are
+intentionally out of scope, those need a deploy round-trip. taskiq
+also has no enable/disable toggle or trigger-now primitive, so the
+dashboard hides those actions for this adapter.
 
 ## Install
 
@@ -43,14 +44,12 @@ from z4j_bare import install_agent
 from z4j_taskiq import TaskiqEngineAdapter
 from z4j_taskiqscheduler import TaskiqSchedulerAdapter
 
-scheduler = TaskiqScheduler(
-    broker=broker,
-    sources=[LabelScheduleSource(broker)],
-)
+source = LabelScheduleSource(broker)
+scheduler = TaskiqScheduler(broker=broker, sources=[source])
 
 install_agent(
     engines=[TaskiqEngineAdapter(broker=broker)],
-    schedulers=[TaskiqSchedulerAdapter(scheduler=scheduler)],
+    schedulers=[TaskiqSchedulerAdapter(source=source)],
     brain_url="https://brain.example.com",
     token="z4j_agent_...",
     project_id="my-project",
@@ -65,8 +64,9 @@ install_agent(
 
 - No exception from the adapter ever propagates back into
   taskiq-scheduler or your task code.
-- Schedule sources are read-only at runtime; the adapter only
-  observes, it does not rewrite the underlying source.
+- The adapter never rewrites schedule definitions; the only write
+  it can perform is an operator-initiated delete, and only when the
+  source itself supports it.
 
 ## Documentation
 
