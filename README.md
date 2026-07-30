@@ -1,8 +1,8 @@
 # z4j-taskiqscheduler
 
-[![PyPI version](https://img.shields.io/pypi/v/z4j-taskiqscheduler.svg?v=1.7.0)](https://pypi.org/project/z4j-taskiqscheduler/)
-[![Python](https://img.shields.io/pypi/pyversions/z4j-taskiqscheduler.svg?v=1.7.0)](https://pypi.org/project/z4j-taskiqscheduler/)
-[![License](https://img.shields.io/pypi/l/z4j-taskiqscheduler.svg?v=1.7.0)](https://github.com/z4jdev/z4j-taskiqscheduler/blob/main/LICENSE)
+[![PyPI version](https://img.shields.io/pypi/v/z4j-taskiqscheduler.svg?v=1.8.0)](https://pypi.org/project/z4j-taskiqscheduler/)
+[![Python](https://img.shields.io/pypi/pyversions/z4j-taskiqscheduler.svg?v=1.8.0)](https://pypi.org/project/z4j-taskiqscheduler/)
+[![License](https://img.shields.io/pypi/l/z4j-taskiqscheduler.svg?v=1.8.0)](https://github.com/z4jdev/z4j-taskiqscheduler/blob/main/LICENSE)
 
 The taskiq-scheduler adapter for [z4j](https://z4j.com).
 
