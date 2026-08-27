@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.1 (2026-08-26)
+
+* Carried with the coordinated fleet release. No adapter behaviour changed.
+
 ## 1.9.0 (2026-08-25)
 
 * Delete is no longer falsely advertised for taskiq's standard read-only label source. Custom sources that implement `delete_schedule` retain the action through runtime capability detection.
