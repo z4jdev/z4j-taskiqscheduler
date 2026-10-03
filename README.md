@@ -15,7 +15,7 @@ that overrides taskiq's unsupported `delete_schedule` default.
 - TaskIQ 0.11+ and <1
 - Python 3.11+
 
-Full per-adapter matrix at <https://z4j.dev/reference/compatibility/>.
+Full per-adapter matrix at <https://docs.z4j.com/reference/compatibility/>.
 
 ## What it ships
 
@@ -113,7 +113,7 @@ an unbound direct read; custom sources fail closed until an owner is supplied.
 
 ## Documentation
 
-Full docs at [z4j.dev/schedulers/taskiq-scheduler/](https://z4j.dev/schedulers/taskiq-scheduler/).
+Full docs at [docs.z4j.com/schedulers/taskiq-scheduler/](https://docs.z4j.com/schedulers/taskiq-scheduler/).
 
 ## License
 
@@ -122,7 +122,7 @@ Apache-2.0, see [LICENSE](LICENSE).
 ## Links
 
 - Homepage: https://z4j.com
-- Documentation: https://z4j.dev
+- Documentation: https://docs.z4j.com
 - PyPI: https://pypi.org/project/z4j-taskiqscheduler/
 - Issues: https://github.com/z4jdev/z4j-taskiqscheduler/issues
 - Changelog: [CHANGELOG.md](CHANGELOG.md)
