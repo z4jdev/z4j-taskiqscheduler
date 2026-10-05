@@ -12,7 +12,7 @@ that overrides taskiq's unsupported `delete_schedule` default.
 
 ## Compatibility
 
-- TaskIQ 0.11+ and <1
+- TaskIQ 0.11+ (no upper bound)
 - Python 3.11+
 
 Full per-adapter matrix at <https://docs.z4j.com/reference/compatibility/>.
